@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="theme-color" content="#ede6da" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Meowjong</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        overflow: hidden;
+        background: #ede6da;
+        touch-action: none;
+        overscroll-behavior: none;
+      }
+      #game-container {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+        background: #ede6da;
+      }
+      html:fullscreen,
+      html:-webkit-full-screen,
+      html:fullscreen body,
+      html:-webkit-full-screen body,
+      html:fullscreen #game-container,
+      html:-webkit-full-screen #game-container,
+      #game-container:fullscreen,
+      #game-container:-webkit-full-screen {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        max-height: none;
+        background: #ede6da;
+      }
+      /* Browser default fullscreen backdrop is black until the game paints. */
+      ::backdrop,
+      :fullscreen::backdrop,
+      :-webkit-full-screen::backdrop {
+        background: #ede6da;
+      }
+      #game-container canvas {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+      }
+      [data-meowjong="replay-bake-cover"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .meowjong-replay-wait {
+        display: flex;
+        gap: 11px;
+        align-items: center;
+      }
+      .meowjong-replay-wait i {
+        display: block;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #6d4c41;
+        opacity: 0.3;
+        animation: meowjong-wait-dot 1s ease-in-out infinite;
+      }
+      .meowjong-replay-wait i:nth-child(2) {
+        animation-delay: 0.16s;
+      }
+      .meowjong-replay-wait i:nth-child(3) {
+        animation-delay: 0.32s;
+      }
+      @keyframes meowjong-wait-dot {
+        0%,
+        80%,
+        100% {
+          opacity: 0.28;
+          transform: translateY(0);
+        }
+        40% {
+          opacity: 0.92;
+          transform: translateY(-6px);
+        }
+      }
+      /* Temporary playtest chips — keep until Legit says to remove them. */
+      #dev-fs,
+      #dev-debug {
+        position: absolute;
+        right: 68px;
+        z-index: 20;
+        height: 20px;
+        width: 62px;
+        padding: 0 4px;
+        border: 1px solid #a1887f;
+        border-radius: 4px;
+        background: #f5f0e6;
+        color: #3e2723;
+        font: 11px/1 Arial, Helvetica, sans-serif;
+        letter-spacing: 0;
+        cursor: pointer;
+        touch-action: manipulation;
+        pointer-events: auto;
+        box-sizing: border-box;
+      }
+      /* One chip is centered on the pause button. Two chips stack across it. */
+      #dev-fs,
+      #dev-debug {
+        top: 26px;
+      }
+      #dev-fs:not([hidden]) {
+        top: 14px;
+      }
+      #dev-fs:not([hidden]) ~ #dev-debug {
+        top: 38px;
+      }
+      #dev-fs:active,
+      #dev-debug:active {
+        background: #6d4c41;
+        color: #f5f0e6;
+      }
+      #dev-fs[hidden],
+      #dev-debug[hidden] {
+        display: none;
+      }
+      input {
+        touch-action: auto;
+        pointer-events: auto;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/main-BVOpB7yi.js"></script>
+  </head>
+  <body>
+    <div id="game-container">
+      <button type="button" id="dev-fs" hidden>FS</button>
+      <button type="button" id="dev-debug" hidden>Debug</button>
+    </div>
+  </body>
+</html>
